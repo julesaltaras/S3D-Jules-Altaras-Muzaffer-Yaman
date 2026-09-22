@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class testGroupe {
 
+    // Teste l’ajout d’un étudiant dans un groupe.
     @Test
     public void testGroupe() {
         Identite id = new Identite("BOL", "Pasdeunom", "Niprainon");
@@ -19,6 +20,7 @@ public class testGroupe {
         assertEquals(etu, gr.getEtudiants().get(0));
     }
 
+    // Teste l’ajout et la suppression d’un étudiant dans un groupe.
     @Test
     public void testGroupe2() {
         Identite id = new Identite("BOL", "Pasdeunom", "Niprainon");
