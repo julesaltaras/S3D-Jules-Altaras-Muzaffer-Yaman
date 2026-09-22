@@ -31,7 +31,6 @@ public class Formation {
     }
 
     public Map<Matiere, Double> getMatieres() {
-
         return matieres;
     }
 }
