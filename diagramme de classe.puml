@@ -1,0 +1,51 @@
+@startuml
+
+' ===================== CLASSES =====================
+class Identite {
+  - nip : String
+  - nom : String
+  - prenom : String
+}
+
+class Matiere {
+  - nom : String
+  - coefficient : int
+}
+
+class Formation {
+  - id : String
+  - matieres : Map<Matiere, Integer>
+  + ajouterMatiere(m : Matiere, coeff : int)
+  + supprimerMatiere(m : Matiere)
+  + getCoefficient(m : Matiere) : int
+}
+
+class Etudiant {
+  - identite : Identite
+  - formation : Formation
+  - resultats : Map<Matiere, List<Double>>
+  + ajouterNote(m : Matiere, note : double)
+  + calculerMoyenneMatiere(m : Matiere) : double
+  + calculerMoyenneGenerale() : double
+}
+
+class Groupe {
+  - etudiants : List<Etudiant>
+  - formation : Formation
+  + ajouterEtudiant(e : Etudiant)
+  + supprimerEtudiant(e : Etudiant)
+  + calculerMoyenneMatiere(m : Matiere) : double
+  + calculerMoyenneGenerale() : double
+  + triAlpha()
+  + triAntiAlpha()
+  + triParMerite()
+}
+
+' ===================== RELATIONS =====================
+Identite "1" -- "1" Etudiant
+Etudiant "1" -- "1" Formation
+Formation "1" -- "*" Matiere
+Groupe "1" -- "*" Etudiant
+Groupe "1" -- "1" Formation
+
+@enduml

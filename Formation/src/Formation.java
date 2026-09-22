@@ -14,6 +14,7 @@ public class Formation {
     }
 
     public void ajouterMatiere(Matiere matiere, double coefficient) {
+        if (coefficient <= 0) throw new IllegalArgumentException("Coefficient négatif ou nul interdit");
         matieres.put(matiere, coefficient);
     }
 
