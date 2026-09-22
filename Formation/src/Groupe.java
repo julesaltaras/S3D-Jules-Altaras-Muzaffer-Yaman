@@ -24,4 +24,20 @@ public class Groupe {
     public void supprimerEtudiant(Etudiant etudiant) {
         this.etudiants.remove(etudiant);
     }
+
+    public double calculerMoyGroupeMatiere (Matiere mat) {
+        double total = 0;
+        for (int i = 0; i < etudiants.size(); i++) {
+            total += etudiants.get(i).calculerMoyenneMatiere(mat);
+        }
+        return total / this.etudiants.size();
+    }
+
+    public double calculerMoyGenGroupe () {
+        double total = 0;
+        for (int i = 0; i < etudiants.size(); i++) {
+            total += this.etudiants.get(i).calculerMoyenneGenerale();
+        }
+        return total / this.etudiants.size();
+    }
 }
