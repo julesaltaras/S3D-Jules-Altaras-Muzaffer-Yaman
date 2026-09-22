@@ -50,7 +50,7 @@ public class Etudiant {
                 sommeNotes += note;
             }
             double moyenne =  sommeNotes/notes.size();
-            int coeff = form.getCoefficient(m);
+            int coeff = (int) form.getCoefficient(m);
             somme += moyenne * coeff;
             totalCoeff += coeff;
         }
