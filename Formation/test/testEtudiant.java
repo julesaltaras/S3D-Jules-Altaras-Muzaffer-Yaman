@@ -1,17 +1,24 @@
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class testEtudiant {
+@Nested
+class testEtudiant {
+    private Object IllegalArgumentException;
+
     @Test
     public void testAjouterNoteNegativeDoitLeverException() {
         Formation formation = new Formation("BUT-INFO");
-        Matiere maths = new Matier("Mathématiques");
+        Matiere maths = new Matiere("Mathématiques");
         formation.ajouterMatiere(maths, 2.0);
         Etudiant etudiant = new Etudiant(new Identite("NIP123", "Jean", "Paul"), formation);
-        assertThrow(IllegalArgumentException) {
+        getClass(IllegalArgumentException); {
             etudiant.ajouterNote(maths, -1.0);
 
         }
+    }
+
+    private void getClass(Object illegalArgumentException) {
     }
 
     @Test
@@ -20,7 +27,7 @@ public class testEtudiant {
         Matiere maths = new Matiere("Mathématiques");
         formation.ajouterMatiere(maths, 2.0);
         Etudiant etudiant = new Etudiant(new Identite("NIP123", "Jean", "Paul"), formation);
-        assertThrow(IllegalArgumentException) {
+        assertThrow(IllegalArgumentException); {
             etudiant.ajouterNote(maths, 20.5);
         }
     }
@@ -32,18 +39,21 @@ public class testEtudiant {
         Matiere histoire = new Matiere("Histoire");
         formation.ajouterMatiere(maths, 2.0);
         Etudiant etudiant = new Etudiant(new Identite("NIP123", "Jean", "Paul"), formation);
-        assertThrow(IllegalArgumentException) {
+        assertThrow(IllegalArgumentException); {
             etudiant.ajouterNote(histoire, 15.0);
         }
+    }
+
+    private void assertThrow(Object illegalArgumentException) {
     }
 
     @Test
     public void testCalculerMoyenneMatiereSansNoteDoitLeverException() {
         Formation formation = new Formation("BUT-INFO");
-        Matiere maths = new Matier("Mathématiques");
+        Matiere maths = new Matiere("Mathématiques");
         formation.ajouterMatiere(maths, 2.0);
         Etudiant etudiant = new Etudiant(new Identite("NIP123", "Jean", "Paul"), formation);
-        assertThrow(IllegalArgumentException) {
+        assertThrow(IllegalArgumentException); {
             etudiant.calculerMoyenneMatiere(maths);
         }
     }
@@ -51,7 +61,7 @@ public class testEtudiant {
     @Test
     public void testCalculerMoyenneMatiereCasNominal() {
         Formation formation = new Formation("BUT-INFO");
-        Matiere maths = new Matier("Mathématiques");
+        Matiere maths = new Matiere("Mathématiques");
         formation.ajouterMatiere(maths, 2.0);
         Etudiant etudiant = new Etudiant(new Identite("NIP123", "Jean", "Paul"), formation);
         etudiant.ajouterNote(maths, 10.0);
@@ -63,8 +73,8 @@ public class testEtudiant {
     @Test
     public void testCalculerMoyenneGeneraleCasNominal() {
         Formation formation = new Formation("BUT-INFO");
-        Matiere maths = new Matier("Mathématiques");
-        Matiere info = new Matier("Informatique");
+        Matiere maths = new Matiere("Mathématiques");
+        Matiere info = new Matiere("Informatique");
         formation.ajouterMatiere(maths, 2.0);
         formation.ajouterMatiere(info, 3.0);
         Etudiant etudiant = new Etudiant(new Identite("NIP123", "Jean", "Paul"), formation);
@@ -81,34 +91,41 @@ public class testEtudiant {
 @Test
 public void testCalculerMoyenneGeneraleSiPasDeNoteDansUneMatiere() {
     Formation formation = new Formation("BUT-INFO");
-    Matiere maths = new Matier("Mathématiques");
-    Matiere info = new Matier("Informatique");
+    Matiere maths = new Matiere("Mathématiques");
+    Matiere info = new Matiere("Informatique");
     formation.ajouterMatiere(maths, 2.0);
     formation.ajouterMatiere(info, 3.0);
     Etudiant etudiant = new Etudiant(new Identite("NIP123", "Jean", "Paul"), formation);
     //Y'a que math qui a une note
     etudiant.ajouterNote(maths, 12.0);
     //Sa leve une excpetion car le calcul est incomplet
-    assertThrow(Exception) {
+    Object Exception = null;
+    assertThrow(Exception); {
         etudiant.calculerMoyenneGenerale();
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    }
-
-
-
+private void assertThrow(Object exception) {
 }
+
+void main() {
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
