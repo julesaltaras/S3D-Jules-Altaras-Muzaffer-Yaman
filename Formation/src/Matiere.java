@@ -8,6 +8,9 @@ public class Matiere {
 
     }
 
+    public Matiere(String mathématiques) {
+    }
+
     public String getNom() {
         return this.nom;
     }
