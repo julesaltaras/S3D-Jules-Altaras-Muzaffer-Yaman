@@ -1,0 +1,14 @@
+@startuml
+participant Utilisateur
+participant Etudiant
+participant Formation
+participant Matiere
+
+Utilisateur -> Etudiant : calculerMoyenneGenerale()
+Etudiant -> Formation : obtenirListeMatieres()
+loop pour chaque matière
+  Etudiant -> Etudiant : calculerMoyenneMatiere(m)
+  Etudiant -> Formation : getCoefficient(m)
+end
+Etudiant -> Utilisateur : retourne moyenne générale
+@enduml

@@ -1,0 +1,11 @@
+@startuml
+participant Utilisateur
+participant Groupe
+participant Etudiant
+
+Utilisateur -> Groupe : calculerMoyenneMatiere(m)
+loop pour chaque étudiant du groupe
+  Groupe -> Etudiant : calculerMoyenneMatiere(m)
+end
+Groupe -> Utilisateur : retourne moyenne de la matière
+@enduml
