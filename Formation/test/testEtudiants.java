@@ -1,131 +1,60 @@
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-@Nested
-class testEtudiant {
-    private Object IllegalArgumentException;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-    @Test
-    public void testAjouterNoteNegativeDoitLeverException() {
-        Formation formation = new Formation("BUT-INFO");
-        Matiere maths = new Matiere("Mathématiques");
-        formation.ajouterMatiere(maths, 2.0);
-        Etudiant etudiant = new Etudiant(new Identite("NIP123", "Jean", "Paul"), formation);
-        getClass(IllegalArgumentException); {
-            etudiant.ajouterNote(maths, -1.0);
+public class testEtudiants {
 
-        }
+    private Etudiant etu;
+    private Matiere mat, mat2, absente;
+
+    @BeforeEach
+    void setUp() {
+        Formation form = new Formation("Astrologue");
+        mat = new Matiere("Sciences", 8);
+        mat2 = new Matiere("Latin", 2);
+        absente = new Matiere("Inconnue", 1);
+        form.ajouterMatiere(mat, 8);
+        form.ajouterMatiere(mat2, 2);
+        etu = new Etudiant(new Identite("BOL", "Pasdeunom", "Niprainon"), form);
     }
 
-    private void getClass(Object illegalArgumentException) {
-    }
-
-    @Test
-    public void testAjouterNoteSuperieureA20DoitLeverException() {
-        Formation formation = new Formation("BUT-INFO");
-        Matiere maths = new Matiere("Mathématiques");
-        formation.ajouterMatiere(maths, 2.0);
-        Etudiant etudiant = new Etudiant(new Identite("NIP123", "Jean", "Paul"), formation);
-        assertThrow(IllegalArgumentException); {
-            etudiant.ajouterNote(maths, 20.5);
-        }
+    private void ajouterNotes(Matiere matiere, double... notes) {
+        for (double note : notes) etu.ajouterNote(matiere, note);
     }
 
     @Test
-    public void testAjouterNoteMatiereInexistanteDoitLeverException() {
-        Formation formation = new Formation("BUT-INFO");
-        Matiere maths = new Matiere("Mathématiques");
-        Matiere histoire = new Matiere("Histoire");
-        formation.ajouterMatiere(maths, 2.0);
-        Etudiant etudiant = new Etudiant(new Identite("NIP123", "Jean", "Paul"), formation);
-        assertThrow(IllegalArgumentException); {
-            etudiant.ajouterNote(histoire, 15.0);
-        }
-    }
-
-    private void assertThrow(Object illegalArgumentException) {
+    void testAjouterNotes() {
+        ajouterNotes(mat, 20, 16, 8);
+        assertEquals(20, etu.getResultats().get(mat).get(0));
+        assertEquals(16, etu.getResultats().get(mat).get(1));
+        assertEquals(8, etu.getResultats().get(mat).get(2));
     }
 
     @Test
-    public void testCalculerMoyenneMatiereSansNoteDoitLeverException() {
-        Formation formation = new Formation("BUT-INFO");
-        Matiere maths = new Matiere("Mathématiques");
-        formation.ajouterMatiere(maths, 2.0);
-        Etudiant etudiant = new Etudiant(new Identite("NIP123", "Jean", "Paul"), formation);
-        assertThrow(IllegalArgumentException); {
-            etudiant.calculerMoyenneMatiere(maths);
-        }
+    void testNotesInvalides() {
+        assertThrows(IllegalArgumentException.class, () -> etu.ajouterNote(mat, -1));
+        assertThrows(IllegalArgumentException.class, () -> etu.ajouterNote(mat, 21));
+        assertThrows(IllegalArgumentException.class, () -> etu.ajouterNote(absente, 10));
     }
 
     @Test
-    public void testCalculerMoyenneMatiereCasNominal() {
-        Formation formation = new Formation("BUT-INFO");
-        Matiere maths = new Matiere("Mathématiques");
-        formation.ajouterMatiere(maths, 2.0);
-        Etudiant etudiant = new Etudiant(new Identite("NIP123", "Jean", "Paul"), formation);
-        etudiant.ajouterNote(maths, 10.0);
-        etudiant.ajouterNote(maths, 14.0);
-        etudiant.ajouterNote(maths, 18.0);
-        assertEquals(14.0, etudiant.calculerMoyenneMatiere(maths));
+    void testMatiereSansNote() {
+        assertThrows(IllegalArgumentException.class, () -> etu.calculerMoyenneMatiere(mat2));
     }
 
     @Test
-    public void testCalculerMoyenneGeneraleCasNominal() {
-        Formation formation = new Formation("BUT-INFO");
-        Matiere maths = new Matiere("Mathématiques");
-        Matiere info = new Matiere("Informatique");
-        formation.ajouterMatiere(maths, 2.0);
-        formation.ajouterMatiere(info, 3.0);
-        Etudiant etudiant = new Etudiant(new Identite("NIP123", "Jean", "Paul"), formation);
-        //maths : (10+14)/2 = 12.0  coef2
-        etudiant.ajouterNote(maths, 10.0);
-        etudiant.ajouterNote(maths, 14.0);
-        //Info : 15.0  coef3
-        etudiant.ajouterNote(info, 15.0);
-        //moyenne g : (12 * 2 + 15 * 3)/2(2+3) =13.8
-        assertEquals(13.8, etudiant.calculerMoyenneGenerale());
+    void testMoyennes() {
+        ajouterNotes(mat, 20, 16, 8, 16);
+        ajouterNotes(mat2, 12, 8);
+        assertEquals(15, etu.calculerMoyenneMatiere(mat));
+        assertEquals(10, etu.calculerMoyenneMatiere(mat2));
+        assertEquals(14, etu.calculerMoyenneGenerale());
+    }
+
+    @Test
+    void testMoyenneGeneraleAvecMatiereSansNote() {
+        ajouterNotes(mat, 20, 10);
+        assertEquals(15, etu.calculerMoyenneGenerale());
     }
 }
-
-@Test
-public void testCalculerMoyenneGeneraleSiPasDeNoteDansUneMatiere() {
-    Formation formation = new Formation("BUT-INFO");
-    Matiere maths = new Matiere("Mathématiques");
-    Matiere info = new Matiere("Informatique");
-    formation.ajouterMatiere(maths, 2.0);
-    formation.ajouterMatiere(info, 3.0);
-    Etudiant etudiant = new Etudiant(new Identite("NIP123", "Jean", "Paul"), formation);
-    //Y'a que math qui a une note
-    etudiant.ajouterNote(maths, 12.0);
-    //Sa leve une excpetion car le calcul est incomplet
-    Object Exception = null;
-    assertThrow(Exception); {
-        etudiant.calculerMoyenneGenerale();
-    }
-}
-
-private void assertThrow(Object exception) {
-}
-
-void main() {
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
