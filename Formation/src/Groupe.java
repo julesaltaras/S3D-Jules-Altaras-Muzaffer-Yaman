@@ -40,4 +40,12 @@ public class Groupe {
         }
         return total / this.etudiants.size();
     }
+
+    public void triAlpha() {
+        etudiants.sort(Comparator.comparing((Etudiant e) -> e.getId().getNom(), String.CASE_INSENSITIVE_ORDER));
+    }
+
+    public void triAntiAlpha() {
+        etudiants.sort(Comparator.comparing((Etudiant e) -> e.getId().getNom(), String.CASE_INSENSITIVE_ORDER).reversed());
+    }
 }
