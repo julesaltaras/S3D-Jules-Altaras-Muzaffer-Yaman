@@ -48,4 +48,8 @@ public class Groupe {
     public void triAntiAlpha() {
         etudiants.sort(Comparator.comparing((Etudiant e) -> e.getId().getNom(), String.CASE_INSENSITIVE_ORDER).reversed());
     }
+
+    public void triParMerite() {
+        etudiants.sort(Comparator.comparingDouble(Etudiant::calculerMoyenneGenerale).reversed());
+    }
 }
